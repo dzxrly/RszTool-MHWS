@@ -4,9 +4,13 @@
 >
 >**Only support Monster Hunter: Wilds**
 
+<div align="center">
+
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/dzxrly/RszTool-MHWS/total?style=flat-square&label=Total%20Downloads) ![GitHub License](https://img.shields.io/github/license/dzxrly/RszTool-MHWS?style=flat-square&label=License)
 
-## How to use this tool
+</div>
+
+# How to use this tool
 
 - Download the latest release [here](https://github.com/dzxrly/RszTool-MHWS/releases).
 - Select **Game Version** to **unknown**.
@@ -14,7 +18,3 @@
 - Right click for array item/game object to see some operation context menu. I think it is good to use.
 
 ![how-to-use](Docs/images/how-to-use.png)
-
-## License
-
-RszTool is under MIT license. See LICENSE for more detail. 
