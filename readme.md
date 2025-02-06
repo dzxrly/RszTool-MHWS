@@ -4,6 +4,7 @@
 >
 >**Only support Monster Hunter: Wilds**
 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/dzxrly/RszTool-MHWS/total?style=flat-square&label=Total%20Downloads) ![GitHub License](https://img.shields.io/github/license/dzxrly/RszTool-MHWS?style=flat-square&label=License)
 
 ## How to use this tool
 
