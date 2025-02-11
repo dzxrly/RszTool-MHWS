@@ -29,45 +29,38 @@ namespace RszTool.App.Common
             writer.WriteString("className", instance.RszClass.name);
 
             writer.WritePropertyName("fields");
-            writer.WriteStartArray();
+            writer.WriteStartObject();
 
             for (int i = 0; i < instance.Fields.Length; i++)
             {
                 WriteField(writer, instance.Fields[i], instance.Values[i]);
             }
 
-            writer.WriteEndArray();
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
         private void WriteField(Utf8JsonWriter writer, RszField field, object value)
         {
-            writer.WriteStartObject();
-            writer.WriteString("name", field.name);
-            writer.WriteString("type", field.DisplayType);
-            
-            writer.WritePropertyName("value");
             if (field.array)
             {
+                writer.WritePropertyName(field.name);
                 WriteArrayValue(writer, field, value);
             }
-            else if (field.IsReference)
+            else if (field.IsReference && value is RszInstance refInstance)
             {
-                if (value is RszInstance refInstance)
-                {
-                    WriteReferenceInstanceValue(writer, refInstance);
-                }
-                else
-                {
-                    writer.WriteNullValue();
-                }
+                writer.WritePropertyName(field.name);
+                writer.WriteStartObject();
+                writer.WriteString("type", field.DisplayType);
+                writer.WritePropertyName("value");
+                WriteReferenceInstanceValue(writer, refInstance);
+                writer.WriteEndObject();
             }
             else
             {
+                writer.WritePropertyName(field.name);
                 WriteNormalValue(writer, field, value);
             }
-            
-            writer.WriteEndObject();
         }
 
         private void WriteArrayValue(Utf8JsonWriter writer, RszField field, object value)
@@ -94,23 +87,21 @@ namespace RszTool.App.Common
         {
             writer.WriteStartObject();
             
-            // 写入引用信息
             writer.WriteString("referenceType", "instance");
             writer.WriteString("name", instance.Name);
             writer.WriteNumber("index", instance.Index);
 
-            // 直接写入引用实例的字段值
             if (instance.Fields.Length > 0)
             {
                 writer.WritePropertyName("fields");
-                writer.WriteStartArray();
+                writer.WriteStartObject();
                 
                 for (int i = 0; i < instance.Fields.Length; i++)
                 {
                     WriteField(writer, instance.Fields[i], instance.Values[i]);
                 }
                 
-                writer.WriteEndArray();
+                writer.WriteEndObject();
             }
 
             writer.WriteEndObject();
